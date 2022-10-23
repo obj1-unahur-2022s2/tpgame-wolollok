@@ -1,8 +1,55 @@
 import wollok.game.*
-import pepita.*
+import nave.*
+import navesEnemigas.*
 
 program juego {
-	game.title("Juego Base")
-	game.addVisual(pepita)
+	//Tablero
+	game.title("Space invaders")
+	game.boardGround("fondoEspacio.jpg")
+	game.width(10)
+	game.height(10)
+	//Teclado
+	keyboard.space().onPressDo({const arsenal = [new Rayo()]
+								arsenal.forEach({r => game.addVisual(r)
+													  game.onTick(2*100, "dispararse", 
+													  {r.dispararse()})
+													  game.whenCollideDo(r,{enemigo => enemigo.morir()															  												
+													  })
+													  //game.whenCollideDo(r, {rayo => rayo.disiparse()})
+								     		    })
+								})
+	
+	//Nave
+	game.addVisualCharacter(nave)
+	
+	//Naves Enemigas
+
+	game.onTick(2000, "Nuevos enemigos", 
+		{const enemigos = [new Enemigo(position = game.at(0.randomUpTo(9), 9))]
+											    enemigos.forEach({e => 
+																  game.addVisual(e)
+																  game.onTick(1000, "movimiento", {															    
+															      e.moverse()															      															   
+		                        								    })
+	      														 }) 
+	            })	            	            
+//	const enemigos = [new Enemigo(position = game.at(0, 9)), 
+//					  new Enemigo(position = game.at(1, 9)),
+//					  new Enemigo(position = game.at(2, 9)),
+//					  new Enemigo(position = game.at(3, 9)),
+//					  new Enemigo(position = game.at(4, 9)),
+//					  new Enemigo(position = game.at(5, 9)),
+//					  new Enemigo(position = game.at(6, 9)),
+//					  new Enemigo(position = game.at(7, 9)),
+//					  new Enemigo(position = game.at(8, 9)),
+//					  new Enemigo(position = game.at(9, 9))
+//	]
+//	enemigos.forEach({e => 
+//		game.addVisual(e)
+//		game.onTick(2000, "movimiento", {
+//			e.moverse()
+//		})
+//	})
+	//Inicio
 	game.start()
 }
