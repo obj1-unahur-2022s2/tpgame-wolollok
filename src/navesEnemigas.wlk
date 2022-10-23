@@ -10,7 +10,12 @@ class Enemigo {
 		const newY = position.y() -1
 		position = game.at(position.x(), newY)
 	}
-	
+	method removerEnemigo(){
+        game.removeVisual(self)
+    }
+	method teAgarro(){
+		
+	}
 	method morir(){
 		game.removeVisual(self)
 	}

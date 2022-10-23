@@ -2,20 +2,23 @@ import wollok.game.*
 import nave.*
 import navesEnemigas.*
 
+
 program juego {
 	//Tablero
 	game.title("Space invaders")
 	game.boardGround("fondoEspacio.jpg")
 	game.width(10)
 	game.height(10)
+	
 	//Teclado
 	keyboard.space().onPressDo({const arsenal = [new Rayo()]
 								arsenal.forEach({r => game.addVisual(r)
 													  game.onTick(2*100, "dispararse", 
 													  {r.dispararse()})
-													  game.whenCollideDo(r,{enemigo => enemigo.morir()															  												
+													  game.whenCollideDo(r,{enemigo => enemigo.morir()
+													  						game.removeVisual(r)															  												
 													  })
-													  //game.whenCollideDo(r, {rayo => rayo.disiparse()})
+													  
 								     		    })
 								})
 	
@@ -32,7 +35,14 @@ program juego {
 															      e.moverse()															      															   
 		                        								    })
 	      														 }) 
-	            })	            	            
+	            })
+	game.onTick(10000, "Nuevos power up" , {const powerUp = [new PowerUp()]
+												 powerUp.forEach({p => game.addVisual(p)												 					   
+												 					   game.whenCollideDo(p, {n => n.teAgarro()
+												 					   						  game.removeVisual(p)
+												 					   })
+												 })
+	})	            	            	            
 //	const enemigos = [new Enemigo(position = game.at(0, 9)), 
 //					  new Enemigo(position = game.at(1, 9)),
 //					  new Enemigo(position = game.at(2, 9)),
