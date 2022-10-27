@@ -1,6 +1,7 @@
 import wollok.game.*
 import nave.*
 import navesEnemigas.*
+import nivel.*
 
 
 program juego {
@@ -11,38 +12,17 @@ program juego {
 	game.height(10)
 	
 	//Teclado
-	keyboard.space().onPressDo({const arsenal = [new Rayo()]
-								arsenal.forEach({r => game.addVisual(r)
-													  game.onTick(2*100, "dispararse", 
-													  {r.dispararse()})
-													  game.whenCollideDo(r,{enemigo => enemigo.morir()
-													  						game.removeVisual(r)															  												
-													  })
-													  
-								     		    })
-								})
+	keyboard.space().onPressDo({nave.disparar()})
 	
 	//Nave
 	game.addVisualCharacter(nave)
 	
 	//Naves Enemigas
 
-	game.onTick(2000, "Nuevos enemigos", 
-		{const enemigos = [new Enemigo(position = game.at(0.randomUpTo(9), 9))]
-											    enemigos.forEach({e => 
-																  game.addVisual(e)
-																  game.onTick(1000, "movimiento", {															    
-															      e.moverse()															      															   
-		                        								    })
-	      														 }) 
-	            })
-	game.onTick(10000, "Nuevos power up" , {const powerUp = [new PowerUp()]
-												 powerUp.forEach({p => game.addVisual(p)												 					   
-												 					   game.whenCollideDo(p, {n => n.teAgarro()
-												 					   						  game.removeVisual(p)
-												 					   })
-												 })
-	})	            	            	            
+	game.onTick(2000, "Nuevos enemigos", {nivel.spawnearEnemigo()})
+	            
+	//Power Up
+	game.onTick(2000, "Nuevos power up" , {nivel.spawnearPowerUp()})
 //	const enemigos = [new Enemigo(position = game.at(0, 9)), 
 //					  new Enemigo(position = game.at(1, 9)),
 //					  new Enemigo(position = game.at(2, 9)),
