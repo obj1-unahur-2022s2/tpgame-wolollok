@@ -7,22 +7,25 @@ import nivel.*
 program juego {
 	//Tablero
 	game.title("Space invaders")
-	game.boardGround("fondoEspacio.jpg")
+	game.boardGround("fondoEspacio.png")
 	game.width(10)
 	game.height(10)
 	
+	
 	//Teclado
 	keyboard.space().onPressDo({nave.disparar()})
+	
+	keyboard.r().onPressDo({})
 	
 	//Nave
 	game.addVisualCharacter(nave)
 	
 	//Naves Enemigas
-
-	game.onTick(2000, "Nuevos enemigos", {nivel.spawnearEnemigo()})
+	game.onTick(1000, "Nuevos enemigos", {nivel.spawnearEnemigo()})
 	            
 	//Power Up
 	game.onTick(2000, "Nuevos power up" , {nivel.spawnearPowerUp()})
+	
 //	const enemigos = [new Enemigo(position = game.at(0, 9)), 
 //					  new Enemigo(position = game.at(1, 9)),
 //					  new Enemigo(position = game.at(2, 9)),

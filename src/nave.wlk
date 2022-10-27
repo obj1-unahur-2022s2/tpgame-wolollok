@@ -1,10 +1,10 @@
 import wollok.game.*
+import nivel.*
 
 object nave {
 	var property position = game.center()
 	var property vidas = 5
 	var property fase = 0
-	
 	
 	method image() = "naveFase" + self.fase().toString() + ".png"
 	
@@ -13,19 +13,27 @@ object nave {
     		fase += 1
     	}
     }
-    method teAgarro(){
-		self.mejorar()
-	}
-	method morir(){}
-	method disiparse(){}
-	method perderVida(){
-		vidas -= 1
+    method agarroPowerUp(){	self.mejorar() }
+	
+	method teAgarroEnemigo(enemigo){
+		game.removeVisual(enemigo)
+		if(fase > 0){
+			fase -= 1
+		}
+		else nivel.gameOver()
 	}
 	
+	method perderVida(){ vidas -= 1	}
+	
 	method disparar(){
+		if(game.hasVisual(self)){
 		const arsenal = new Rayo()
 		arsenal.configuracionInicial()
+		}
 	}
+	
+	method morir(){}
+	method disiparse(){}
 }
 
 class PowerUp{
@@ -34,20 +42,22 @@ class PowerUp{
 	
 	method configuracionInicial(){
 		game.addVisual(self)	
-		game.whenCollideDo(self,{n => n.teAgarro() game.removeVisual(self)})
+		game.whenCollideDo(self,{n => n.agarroPowerUp() game.removeVisual(self)})
 	}
 	
-	method teAgarro(){}
-	method morir(){
-		game.removeVisual(self)
+	method agarroPowerUp(){}
+	method teAgarroEnemigo(enemigo){
+		self.morir()
+		
 	}
+	method morir(){	game.removeVisual(self)	}
+	
+	method bajarFase(){}
 }
 
 class Rayo {
 	var property image = "rayito.png"
 	var property position = game.at(nave.position().x(),nave.position().y()+1)
-	
-	
 	
 	method configuracionInicial(){
 		game.addVisual(self)
@@ -65,11 +75,12 @@ class Rayo {
 		game.removeTickEvent("moverse")
 	}
 	
-	method teAgarro(){}
-	
-	method morir(){
-		 game.whenCollideDo(self, {rayo => rayo.disiparse()})
-	}
+	method teAgarroEnemigo(enemigo){ game.removeVisual(enemigo)	}
+
+	method morir(){}
+	//method terminar(){game.removeTickEvent("moverse")}
+	method agarroPowerUp(){}
+	method bajarFase(){}
 }
 
 
