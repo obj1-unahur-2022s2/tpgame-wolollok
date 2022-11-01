@@ -15,16 +15,16 @@ program juego {
 	//Teclado
 	keyboard.space().onPressDo({nave.disparar()})
 	
-	keyboard.r().onPressDo({})
+	keyboard.r().onPressDo({ game.clear() nivel.configuracionInicial() })
 	
 	//Nave
 	game.addVisualCharacter(nave)
 	
 	//Naves Enemigas
-	game.onTick(1000, "Nuevos enemigos", {nivel.spawnearEnemigo()})
-	            
+	game.onTick(2000, "Nuevos enemigos", {nivel.spawnearEnemigo()})   
+	 
 	//Power Up
-	game.onTick(2000, "Nuevos power up" , {nivel.spawnearPowerUp()})
+	game.onTick(3000, "Nuevos power up" , {nivel.spawnearPowerUp()})
 	
 //	const enemigos = [new Enemigo(position = game.at(0, 9)), 
 //					  new Enemigo(position = game.at(1, 9)),

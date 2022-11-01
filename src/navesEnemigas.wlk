@@ -2,13 +2,17 @@ import wollok.game.*
 import nave.*
 
 class Enemigo {
-	
+
 	var property image = "naveEnemiga1.png"
 	var property position = game.at(0.randomUpTo(9), 9)
 	
 	method moverse(){
 //		const newY = position.y() -1
 		position = position.down(1)
+		if(position.y()<0){
+			game.removeVisual(self)
+			game.removeTickEvent("movimiento")
+		}
 	}
 	
 	method configuracionInicial(){
@@ -22,6 +26,8 @@ class Enemigo {
 	method morir(){
 		game.removeVisual(self)
 		game.removeTickEvent("movimiento")
+		nave.enemigoDerrotado()
+		game.say(nave,nave.enemigosDerrotados().toString())
 	}
 	
 	method terminar(){

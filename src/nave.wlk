@@ -5,8 +5,11 @@ object nave {
 	var property position = game.center()
 	var property vidas = 5
 	var property fase = 0
+	var property enemigosDerrotados = 0
 	
 	method image() = "naveFase" + self.fase().toString() + ".png"
+	
+	method fase()= fase
 	
     method mejorar(){
     	if(fase != 2){
@@ -32,6 +35,10 @@ object nave {
 		}
 	}
 	
+	method enemigoDerrotado(){
+		enemigosDerrotados += 1
+	}
+	
 	method morir(){}
 	method disiparse(){}
 }
@@ -46,10 +53,11 @@ class PowerUp{
 	}
 	
 	method agarroPowerUp(){}
+	
 	method teAgarroEnemigo(enemigo){
 		self.morir()
-		
 	}
+	
 	method morir(){	game.removeVisual(self)	}
 	
 	method bajarFase(){}
@@ -75,7 +83,8 @@ class Rayo {
 		game.removeTickEvent("moverse")
 	}
 	
-	method teAgarroEnemigo(enemigo){ game.removeVisual(enemigo)	}
+	//method teAgarroEnemigo(enemigo){ game.removeVisual(enemigo) }
+	method teAgarroEnemigo(enemigo){}
 
 	method morir(){}
 	//method terminar(){game.removeTickEvent("moverse")}
