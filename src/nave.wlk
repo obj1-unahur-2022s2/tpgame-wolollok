@@ -1,5 +1,6 @@
 import wollok.game.*
 import nivel.*
+import medidas.*
 
 object nave {
 	var property position = game.center()
@@ -33,34 +34,14 @@ object nave {
 	
 	method perderVida(){ vidas -= 1	}
 	
+	method dispararSiPuede(){
+		if(game.hasVisual(self)){
+			self.disparar()
+		}
+	}
+	
 	method disparar(){
-		if(game.hasVisual(self) and fase==1){
-			const arsenal1 = new Rayo(position=game.at(self.position().x(),self.position().y()+1))
-			const arsenal2 = new Rayo(position=game.at(self.position().x()+1,self.position().y()+1))
-			const arsenal3 = new Rayo(position=game.at(self.position().x()-1,self.position().y()+1))
-		
-			arsenal1.configuracionInicial()
-			arsenal2.configuracionInicial()
-			arsenal3.configuracionInicial()
-		}
-		else if(game.hasVisual(self) and fase==2){
-			const arsenal1 = new Rayo(position=game.at(self.position().x(),self.position().y()+1))
-			const arsenal2 = new Rayo(position=game.at(self.position().x()+1,self.position().y()+1))
-			const arsenal3 = new Rayo(position=game.at(self.position().x()-1,self.position().y()+1))
-			const arsenal4 = new Rayo(position=game.at(self.position().x()+2,self.position().y()+1))
-			const arsenal5 = new Rayo(position=game.at(self.position().x()-2,self.position().y()+1))	
-		
-		
-			arsenal1.configuracionInicial()
-			arsenal2.configuracionInicial()
-			arsenal3.configuracionInicial()
-			arsenal4.configuracionInicial()
-			arsenal5.configuracionInicial()
-		}
-		else if(game.hasVisual(self)){
-			const arsenal = new Rayo(position=game.at(self.position().x(),self.position().y()+1))
-			arsenal.configuracionInicial()
-		}
+		(-fase..fase).forEach({n=> (new Rayo(position=game.at(self.position().x()+n,self.position().y()+1))).configuracionInicial()})
 	}
 	
 	method bomba(){
@@ -72,9 +53,7 @@ object nave {
 	}
 	
 	
-	method enemigoDerrotado(){
-		enemigosDerrotados += 1
-	}
+	method enemigoDerrotado(){ enemigosDerrotados += 1 }
 	
 	method morir(){}
 	method disiparse(){}
@@ -106,18 +85,23 @@ class Rayo {
 	
 	method configuracionInicial(){
 		game.addVisual(self)
-		game.onTick(2*100, "moverse", {self.moverse()} )
-		game.whenCollideDo(self, { enemigo => enemigo.morir() game.removeVisual(self) })
+		game.onTick(199, "moverse", {self.moverse()} )
+		game.whenCollideDo(self, { enemigo => enemigo.morir() self.disiparse() })
 	}
 	
 	method moverse(){
-		const newY = position.y() + 1
-		position = game.at(position.x(), newY)
+		position = position.up(1)
+		if(position.y()>tablero.alturaMax()){
+			self.disiparse()
+		}
 	}
 	
 	method disiparse(){
-		game.removeVisual(self)
-		game.removeTickEvent("moverse")
+		if(game.hasVisual(self)){
+			game.removeTickEvent("moverse")
+			game.removeVisual(self)
+		}
+		
 	}
 	
 	//method teAgarroEnemigo(enemigo){ game.removeVisual(enemigo) }

@@ -2,34 +2,20 @@ import wollok.game.*
 import nave.*
 import navesEnemigas.*
 import nivel.*
-
+import medidas.*
 
 program juego {
 	//Tablero
-	game.title("Wollolok invaders")
+	game.title("Wolollok invaders")
+	game.addVisual(menu)
 	game.boardGround("fondoEspacio.png")
-	game.width(9)
+	game.width(12)
 	game.height(9)
 	
 	//Teclado
-	keyboard.space().onPressDo({nave.disparar()})
+	//if(game.hasVisual(tablero)){keyboard.enter().onPressDo({game.removeVisual(tablero) nivel.configuracionInicial()})}
 	
-	keyboard.b().onPressDo({nave.bomba()})
-	
-	keyboard.r().onPressDo({ game.clear() nivel.configuracionInicial() })
-	
-	//keyboard.enter().onPressDo({ nivel.configuracionInicial() })
-	
-	//Nave
-	game.addVisualCharacter(nave)
-	
-	//Naves Enemigas
-	game.onTick(2000, "Nuevos enemigos", {nivel.spawnearEnemigo1()})
-	game.onTick(1000, "Nuevos enemigos2", {nivel.spawnearEnemigo2()})
-	game.onTick(750, "Nuevos enemigos3", {nivel.spawnearEnemigo3()})
-	
-	//Power Up
-	game.onTick(20000, "Nuevos power up" , {nivel.spawnearPowerUp()})
+	keyboard.enter().onPressDo({if(game.hasVisual(menu)){game.removeVisual(menu) nivel.configuracionInicial()}})
 	
 	//Inicio
 	game.start()

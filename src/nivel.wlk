@@ -1,6 +1,7 @@
 import wollok.game.*
 import navesEnemigas.*
 import nave.*
+import medidas.*
 
 object nivel{
 	const property listaEnemigos =[]
@@ -19,22 +20,12 @@ object nivel{
 		else return 3
 	}
 	
-//	method aparicionDeEnemigos(){
-//		if (self.dificultadNivel()==1){
-//			aparicionDeEnemigos = 2000
-//		}
-//		else if(self.dificultadNivel()==2){
-//			aparicionDeEnemigos = 1000
-//		}
-//		else aparicionDeEnemigos = 500	
-//		return aparicionDeEnemigos	
-//	}
-	
 	method configuracionInicial(){
+		
 		nave.fase(0)
 		nave.enemigosDerrotados(0)
 		//Teclado
-		keyboard.space().onPressDo({nave.disparar()})
+		keyboard.space().onPressDo({nave.dispararSiPuede()})
 		
 		keyboard.b().onPressDo({nave.bomba()})
 		
@@ -46,20 +37,16 @@ object nivel{
 		//Naves Enemigas
 		game.onTick(2000, "Nuevos enemigos", {self.spawnearEnemigo1()})   
 		game.onTick(1000, "Nuevos enemigos2", {self.spawnearEnemigo2()})  
-		game.onTick(500, "Nuevos enemigos3", {self.spawnearEnemigo3()})   
+		game.onTick(750, "Nuevos enemigos3", {self.spawnearEnemigo3()})   
 	            
 		//Power Up
-		game.onTick(2000, "Nuevos power up" , {self.spawnearPowerUp()})
+		game.onTick(20000, "Nuevos power up" , {self.spawnearPowerUp()})
 	}
 	
 	method gameOver(){
-		game.removeTickEvent("Nuevos enemigos")
-		game.removeTickEvent("Nuevos enemigos2")
-		game.removeTickEvent("Nuevos enemigos3")
-		game.removeTickEvent("Nuevos power up")
-		game.removeVisual(nave)
-		listaEnemigos.forEach({e=>e.terminar()})
-		game.say(nave,"game over")
+		game.clear()
+		keyboard.r().onPressDo({ game.clear() self.configuracionInicial() })
+		game.addVisualIn(reinicio,game.at(2,2))//2,2
 	}
 	
 	method spawnearEnemigo1(){

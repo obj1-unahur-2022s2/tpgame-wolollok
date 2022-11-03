@@ -1,9 +1,10 @@
 import wollok.game.*
 import nave.*
 import nivel.*
+import medidas.*
 
 class Enemigo {
-	var property position = game.at(0.randomUpTo(9), 9)
+	var property position = game.at(0.randomUpTo(tablero.anchoMax()), tablero.alturaMax())
 	const property posicionInicial = position
 	
 	method image()= "naveEnemiga1.png"
@@ -11,9 +12,8 @@ class Enemigo {
 	method moverse(){
 //		const newY = position.y() -1
 		position = position.down(1)
-		if(position.y()<0){
-			game.removeVisual(self)
-			game.removeTickEvent("movimiento")
+		if(position.y() < tablero.alturaMin()){
+			self.desaparecer()
 		}
 	}
 	
@@ -25,12 +25,21 @@ class Enemigo {
 	
 	method removerEnemigo(){ game.removeVisual(self) }
 	
+	method desaparecer(){
+		if(game.hasVisual(self)){
+			nivel.listaEnemigos().remove(self)
+			self.terminar()
+			self.removerEnemigo()
+		}
+	}
+	
 	method morir(){
-		nivel.listaEnemigos().remove(self)
-		self.removerEnemigo()
-		self.terminar()
-		nave.enemigoDerrotado()
-		//game.say(nave,nave.enemigosDerrotados().toString())
+		if(game.hasVisual(self)){
+			nivel.listaEnemigos().remove(self)
+			self.terminar()
+			self.removerEnemigo()
+			nave.enemigoDerrotado()
+		}
 	}
 	
 	method terminar(){ game.removeTickEvent("movimiento") }
@@ -76,11 +85,9 @@ class Enemigo3 inherits Enemigo{
 	
 	method perseguirNave(){
 		position = game.at(
-            position.x() + (nave.position().x()-position.x())/3,
-            position.y() + (nave.position().y()- position.y())/3
+            position.x() + (nave.position().x()-position.x())/4,
+            position.y() + (nave.position().y()- position.y())/4
 		)
 	}
-	
-	
 }
 
