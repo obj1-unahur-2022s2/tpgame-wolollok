@@ -9,13 +9,18 @@ object nave {
 	
 	method image() = "naveFase" + self.fase().toString() + ".png"
 	
-	method fase()= fase
-	
     method mejorar(){
     	if(fase != 2){
     		fase += 1
     	}
     }
+    
+    method disminuirFase(){
+    	if(fase>0){
+    		fase -=1
+    	}
+    }
+    
     method agarroPowerUp(){	self.mejorar() }
 	
 	method teAgarroEnemigo(enemigo){
@@ -29,11 +34,43 @@ object nave {
 	method perderVida(){ vidas -= 1	}
 	
 	method disparar(){
-		if(game.hasVisual(self)){
-		const arsenal = new Rayo()
-		arsenal.configuracionInicial()
+		if(game.hasVisual(self) and fase==1){
+			const arsenal1 = new Rayo(position=game.at(self.position().x(),self.position().y()+1))
+			const arsenal2 = new Rayo(position=game.at(self.position().x()+1,self.position().y()+1))
+			const arsenal3 = new Rayo(position=game.at(self.position().x()-1,self.position().y()+1))
+		
+			arsenal1.configuracionInicial()
+			arsenal2.configuracionInicial()
+			arsenal3.configuracionInicial()
+		}
+		else if(game.hasVisual(self) and fase==2){
+			const arsenal1 = new Rayo(position=game.at(self.position().x(),self.position().y()+1))
+			const arsenal2 = new Rayo(position=game.at(self.position().x()+1,self.position().y()+1))
+			const arsenal3 = new Rayo(position=game.at(self.position().x()-1,self.position().y()+1))
+			const arsenal4 = new Rayo(position=game.at(self.position().x()+2,self.position().y()+1))
+			const arsenal5 = new Rayo(position=game.at(self.position().x()-2,self.position().y()+1))	
+		
+		
+			arsenal1.configuracionInicial()
+			arsenal2.configuracionInicial()
+			arsenal3.configuracionInicial()
+			arsenal4.configuracionInicial()
+			arsenal5.configuracionInicial()
+		}
+		else if(game.hasVisual(self)){
+			const arsenal = new Rayo(position=game.at(self.position().x(),self.position().y()+1))
+			arsenal.configuracionInicial()
 		}
 	}
+	
+	method bomba(){
+		if(game.hasVisual(self) and fase>0){
+			nivel.matarTodosLosEnemigos()
+			game.say(self,"BOOM")
+			self.disminuirFase()
+		}
+	}
+	
 	
 	method enemigoDerrotado(){
 		enemigosDerrotados += 1
@@ -42,7 +79,7 @@ object nave {
 	method morir(){}
 	method disiparse(){}
 }
-
+// position = game.at(nave.position().x(),nave.position().y()+1)
 class PowerUp{
 	var property image = "wollok.png"
 	var property position = game.at(0.randomUpTo(9), 0.randomUpTo(9))
@@ -64,8 +101,8 @@ class PowerUp{
 }
 
 class Rayo {
-	var property image = "rayito.png"
-	var property position = game.at(nave.position().x(),nave.position().y()+1)
+	var property image = "rayito2.png"
+	var property position 
 	
 	method configuracionInicial(){
 		game.addVisual(self)
@@ -92,4 +129,5 @@ class Rayo {
 	method bajarFase(){}
 }
 
+// AGREGAR PANTALLA GAME OVER - PANTALLA TUTORIAL (TOCAS enter Y ARRANCA) como BOARDGROUND (EXTRA sonidos)
 

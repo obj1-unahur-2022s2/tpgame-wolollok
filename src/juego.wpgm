@@ -6,43 +6,32 @@ import nivel.*
 
 program juego {
 	//Tablero
-	game.title("Space invaders")
+	game.title("Wollolok invaders")
 	game.boardGround("fondoEspacio.png")
-	game.width(10)
-	game.height(10)
-	
+	game.width(9)
+	game.height(9)
 	
 	//Teclado
 	keyboard.space().onPressDo({nave.disparar()})
 	
+	keyboard.b().onPressDo({nave.bomba()})
+	
 	keyboard.r().onPressDo({ game.clear() nivel.configuracionInicial() })
+	
+	//keyboard.enter().onPressDo({ nivel.configuracionInicial() })
 	
 	//Nave
 	game.addVisualCharacter(nave)
 	
 	//Naves Enemigas
-	game.onTick(2000, "Nuevos enemigos", {nivel.spawnearEnemigo()})   
-	 
-	//Power Up
-	game.onTick(3000, "Nuevos power up" , {nivel.spawnearPowerUp()})
+	game.onTick(2000, "Nuevos enemigos", {nivel.spawnearEnemigo1()})
+	game.onTick(1000, "Nuevos enemigos2", {nivel.spawnearEnemigo2()})
+	game.onTick(750, "Nuevos enemigos3", {nivel.spawnearEnemigo3()})
 	
-//	const enemigos = [new Enemigo(position = game.at(0, 9)), 
-//					  new Enemigo(position = game.at(1, 9)),
-//					  new Enemigo(position = game.at(2, 9)),
-//					  new Enemigo(position = game.at(3, 9)),
-//					  new Enemigo(position = game.at(4, 9)),
-//					  new Enemigo(position = game.at(5, 9)),
-//					  new Enemigo(position = game.at(6, 9)),
-//					  new Enemigo(position = game.at(7, 9)),
-//					  new Enemigo(position = game.at(8, 9)),
-//					  new Enemigo(position = game.at(9, 9))
-//	]
-//	enemigos.forEach({e => 
-//		game.addVisual(e)
-//		game.onTick(2000, "movimiento", {
-//			e.moverse()
-//		})
-//	})
+	//Power Up
+	game.onTick(20000, "Nuevos power up" , {nivel.spawnearPowerUp()})
+	
 	//Inicio
 	game.start()
+	
 }
