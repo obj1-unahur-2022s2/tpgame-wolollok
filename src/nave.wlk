@@ -80,8 +80,10 @@ class PowerUp{
 }
 
 class Rayo {
-	var property image = "rayito2.png"
+//	var property image = "rayito2.png"
 	var property position 
+	
+	method image() = "rayoFase" + nave.fase().toString() + ".png"
 	
 	method configuracionInicial(){
 		game.addVisual(self)
