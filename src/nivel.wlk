@@ -25,7 +25,7 @@ object nivel{
 		nave.fase(0)
 		nave.enemigosDerrotados(0)
 		//Teclado
-		keyboard.space().onPressDo({nave.dispararSiPuede()})
+		keyboard.space().onPressDo({game.schedule(99,{=> nave.dispararSiPuede()})})
 		
 		keyboard.b().onPressDo({nave.bomba()})
 		

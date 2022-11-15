@@ -6,8 +6,6 @@ object tablero {
 	method anchoMax()= game.width()
 	method anchoMin()= 0
 	
-	
-	
 }
 
 object menu{

@@ -87,7 +87,7 @@ class Rayo {
 	
 	method configuracionInicial(){
 		game.addVisual(self)
-		game.onTick(199, "moverse", {self.moverse()} )
+		game.onTick(197, "moverse", {self.moverse()} )
 		game.whenCollideDo(self, { enemigo => enemigo.morir() self.disiparse() })
 	}
 	
@@ -95,12 +95,13 @@ class Rayo {
 		position = position.up(1)
 		if(position.y()>tablero.alturaMax()){
 			self.disiparse()
+			game.removeTickEvent("moverse")
 		}
 	}
 	
 	method disiparse(){
 		if(game.hasVisual(self)){
-			game.removeTickEvent("moverse")
+			//game.removeTickEvent("moverse")
 			game.removeVisual(self)
 		}
 		
@@ -108,7 +109,6 @@ class Rayo {
 	
 	//method teAgarroEnemigo(enemigo){ game.removeVisual(enemigo) }
 	method teAgarroEnemigo(enemigo){}
-
 	method morir(){}
 	//method terminar(){game.removeTickEvent("moverse")}
 	method agarroPowerUp(){}
