@@ -46,7 +46,8 @@ object nivel{
 	method gameOver(){
 		game.clear()
 		keyboard.r().onPressDo({ game.clear() self.configuracionInicial() })
-		game.addVisualIn(reinicio,game.at(2,2))//2,2
+		game.addVisualIn(reinicio,game.origin())//2,2
+		game.say(reinicio, "Has derrotado " + nave.enemigosDerrotados() + " enemigos")
 	}
 	
 	method spawnearEnemigo1(){
