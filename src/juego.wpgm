@@ -15,7 +15,7 @@ program juego {
 	//Teclado
 	//if(game.hasVisual(tablero)){keyboard.enter().onPressDo({game.removeVisual(tablero) nivel.configuracionInicial()})}
 	
-	keyboard.enter().onPressDo({if(game.hasVisual(menu)){game.removeVisual(menu) nivel.configuracionInicial()}})
+	keyboard.enter().onPressDo({if(game.hasVisual(menu)){game.removeVisual(menu) nivel.configSonido() nivel.configuracionInicial() }})
 	
 	//Inicio
 	game.start()

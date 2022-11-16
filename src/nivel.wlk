@@ -5,7 +5,8 @@ import medidas.*
 
 object nivel{
 	const property listaEnemigos =[]
-
+	const tema = game.sound("MusicaTest.mp3")
+	
 	method matarTodosLosEnemigos(){
 		listaEnemigos.forEach({e=>e.morir()})
 	}
@@ -20,6 +21,13 @@ object nivel{
 		else return 3
 	}
 	
+	method configSonido(){
+		
+		tema.volume(0.05)
+		tema.play()
+		tema.pause()
+	}
+	
 	method configuracionInicial(){
 		
 		nave.fase(0)
@@ -29,11 +37,11 @@ object nivel{
 		
 		keyboard.b().onPressDo({nave.bomba()})
 		
-		keyboard.r().onPressDo({ game.clear() self.configuracionInicial() })
-	
+		keyboard.r().onPressDo({ game.clear() tema.pause() self.configuracionInicial() })
+		
 		//Nave
 		game.addVisualCharacter(nave)
-	
+		nave.centrar()
 		//Naves Enemigas
 		game.onTick(2000, "Nuevos enemigos", {self.spawnearEnemigo1()})   
 		game.onTick(1000, "Nuevos enemigos2", {self.spawnearEnemigo2()})  
@@ -41,10 +49,13 @@ object nivel{
 	            
 		//Power Up
 		game.onTick(20000, "Nuevos power up" , {self.spawnearPowerUp()})
+		
+		tema.resume()
 	}
 	
 	method gameOver(){
 		game.clear()
+		tema.pause()
 		keyboard.r().onPressDo({ game.clear() self.configuracionInicial() })
 		game.addVisualIn(reinicio,game.origin())//2,2
 		game.say(reinicio, "Has derrotado " + nave.enemigosDerrotados() + " enemigos")

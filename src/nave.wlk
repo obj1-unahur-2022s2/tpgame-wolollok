@@ -10,6 +10,10 @@ object nave {
 	
 	method image() = "naveFase" + self.fase().toString() + ".png"
 	
+	method centrar(){
+		position = game.center()
+	}
+	
     method mejorar(){
     	if(fase != 2){
     		fase += 1
@@ -107,6 +111,7 @@ class Rayo {
 		
 	}
 	
+	//POLIMORFISMO
 	//method teAgarroEnemigo(enemigo){ game.removeVisual(enemigo) }
 	method teAgarroEnemigo(enemigo){}
 	method morir(){}
