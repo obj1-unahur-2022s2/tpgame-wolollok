@@ -23,7 +23,7 @@ object nivel{
 	
 	method configSonido(){
 		
-		tema.volume(0.05)
+		tema.volume(0.5)
 		tema.shouldLoop(true)
 		tema.play()
 		tema.pause()

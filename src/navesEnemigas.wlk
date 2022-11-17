@@ -14,7 +14,7 @@ class Enemigo {
 		position = position.down(1)
 		if(position.y() < tablero.alturaMin()){
 			self.desaparecer()
-			self.terminar()
+//			self.terminar()
 		}
 	}
 	
@@ -30,7 +30,7 @@ class Enemigo {
 	method desaparecer(){
 		if(game.hasVisual(self)){
 			nivel.listaEnemigos().remove(self)
-			//self.terminar()
+			self.terminar()
 			self.removerEnemigo()
 		}
 	}
@@ -38,11 +38,13 @@ class Enemigo {
 	method morir(){
 		if(game.hasVisual(self)){
 			nivel.listaEnemigos().remove(self)
-			//self.terminar()
+			self.terminar2()
 			self.removerEnemigo()
 			nave.enemigoDerrotado()
 		}
 	}
+	
+	method terminar2(){}
 	
 	
 	method terminar(){ game.removeTickEvent("movimiento") }
@@ -55,13 +57,13 @@ class Enemigo {
 class Enemigo2 inherits Enemigo{
 	override method image()= "naveEnemiga2.png"
 	
-	override method configuracionInicial(){
-		game.addVisual(self)
-		game.onTick(1000, "movimiento", {self.zigzag()})
-		game.whenCollideDo(self, {n => n.teAgarroEnemigo(self)})
-	}
+//	override method configuracionInicial(){
+//		game.addVisual(self)
+//		game.onTick(1000, "movimiento", {self.zigzag()})
+//		game.whenCollideDo(self, {n => n.teAgarroEnemigo(self)})
+//	}
 	
-	method zigzag(){
+	override method moverse(){
 		self.abajoIzq()
 		game.schedule(500,{=> self.abajoDer()})
 	}
@@ -81,22 +83,26 @@ class Enemigo2 inherits Enemigo{
 class Enemigo3 inherits Enemigo{
 	override method image()= "naveEnemiga3.png"
 	
-	override method morir(){
-		if(game.hasVisual(self)){
-			nivel.listaEnemigos().remove(self)
-			self.terminar()
-			self.removerEnemigo()
-			nave.enemigoDerrotado()
-		}
+//	override method morir(){
+//		if(game.hasVisual(self)){
+//			nivel.listaEnemigos().remove(self)
+//			self.terminar()
+//			self.removerEnemigo()
+//			nave.enemigoDerrotado()
+//		}
+//	}
+	
+	override method terminar2() {
+		self.terminar()
 	}
 	
-	override method configuracionInicial(){
-		game.addVisual(self)
-		game.onTick(1000, "movimiento", {self.perseguirNave()})
-		game.whenCollideDo(self, {n => n.teAgarroEnemigo(self)})
-	}
+//	override method configuracionInicial(){
+//		game.addVisual(self)
+//		game.onTick(1000, "movimiento", {self.perseguirNave()})
+//		game.whenCollideDo(self, {n => n.teAgarroEnemigo(self)})
+//	}
 	
-	method perseguirNave(){
+	override method moverse(){
 		position = game.at(
             position.x() + (nave.position().x()-position.x())/2,//4
             position.y() + (nave.position().y()- position.y())/2//4
