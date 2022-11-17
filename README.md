@@ -9,8 +9,8 @@
 
 ## Capturas
 
-Wollolok_Menu.png
-Wolollok_Reinicio.png
+![Wollolok_Menu](./assets/Wollolok_Menu.png)
+![Wolollok_Reinicio](./assets/Wolollok_Reinicio.png)
 
 ## Reglas de Juego / Instrucciones
 
