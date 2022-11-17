@@ -5,7 +5,7 @@ import medidas.*
 
 object nivel{
 	const property listaEnemigos =[]
-	const tema = game.sound("MusicaTest.mp3")
+	const tema = game.sound("MusicaTest2.mp3")
 	
 	method matarTodosLosEnemigos(){
 		listaEnemigos.forEach({e=>e.morir()})
