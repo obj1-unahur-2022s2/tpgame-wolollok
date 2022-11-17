@@ -10,7 +10,8 @@
 ## Capturas
 
 ![Wollolok_Menu](./assets/Wollolok_Menu.png)
-![Wolollok_Reinicio](./assets/Wolollok_Reinicio.png)
+![foto1](./assets/foto1.png)
+![foto2](./assets/foto2.png)
 
 ## Reglas de Juego / Instrucciones
 
