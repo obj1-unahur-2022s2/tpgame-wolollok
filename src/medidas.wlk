@@ -12,11 +12,11 @@ object menu{
 //	const property position = game.center()
 	//method position()= game.center().left(4).down(2)
 	method position()= game.origin()
-	method image()= "Wollolok_Menu.png"
+	method image()= "menuFinal.png"
 }
 
 object reinicio{
 	method position()= game.origin()
 	//method position()= game.at(2,2)
-	method image()= "Wolollok_Reinicio.png"
+	method image()= "perdisteFinal.png"
 }
