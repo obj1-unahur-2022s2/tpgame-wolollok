@@ -44,9 +44,13 @@ object nivel{
 		game.addVisualCharacter(nave)
 		nave.centrar()
 		//Naves Enemigas
-		game.onTick(2000, "Nuevos enemigos", {self.spawnearEnemigo1()})   
-		game.onTick(1000, "Nuevos enemigos2", {self.spawnearEnemigo2()})  
-		game.onTick(750, "Nuevos enemigos3", {self.spawnearEnemigo3()})   
+//		game.onTick(2000, "Nuevos enemigos", {self.spawnearEnemigo1()})   
+//		game.onTick(1000, "Nuevos enemigos2", {self.spawnearEnemigo2()})  
+//		game.onTick(750, "Nuevos enemigos3", {self.spawnearEnemigo3()})   
+		
+		game.onTick(2000, "Nuevos enemigos", {self.spawnearEnemigo_(1)})   
+		game.onTick(1000, "Nuevos enemigos2", {self.spawnearEnemigo_(2)})  
+		game.onTick(750, "Nuevos enemigos3", {self.spawnearEnemigo_(3)})  
 	            
 		//Power Up
 		game.onTick(20000, "Nuevos power up" , {self.spawnearPowerUp()})
@@ -62,27 +66,65 @@ object nivel{
 		game.say(reinicio, "Has derrotado " + nave.enemigosDerrotados() + " enemigos")
 	}
 	
-	method spawnearEnemigo1(){
-		if(self.dificultadNivel()==1){
-			const enemigos = new Enemigo()
-			enemigos.configuracionInicial()
-			listaEnemigos.add(enemigos)	
-		}
-	}
+//	method spawnearEnemigo1(){
+//		if(self.dificultadNivel()==1){
+//			const enemigos = new Enemigo()
+//			enemigos.configuracionInicial()
+//			listaEnemigos.add(enemigos)	
+//		}
+//	}
+//	
+//	method spawnearEnemigo2(){
+//		if(self.dificultadNivel()==2){
+//			const enemigos = new Enemigo2()
+//			enemigos.configuracionInicial()
+//			listaEnemigos.add(enemigos)	
+//		}
+//	}
+//	
+//	method spawnearEnemigo3(){
+//		if(self.dificultadNivel()==3){
+//			const enemigos = new Enemigo3()
+//			enemigos.configuracionInicial()
+//			listaEnemigos.add(enemigos)	
+//		}
+//	}
 	
-	method spawnearEnemigo2(){
-		if(self.dificultadNivel()==2){
-			const enemigos = new Enemigo2()
-			enemigos.configuracionInicial()
-			listaEnemigos.add(enemigos)	
-		}
-	}
+//	method spawnearEnemigo_(numero){
+//		if(self.dificultadNivel()==numero and numero==1){
+//			const enemigos = new Enemigo()
+//			enemigos.configuracionInicial()
+//			listaEnemigos.add(enemigos)	
+//		}
+//		else if(self.dificultadNivel()==numero and numero==2){
+//			const enemigos = new Enemigo2()
+//			enemigos.configuracionInicial()
+//			listaEnemigos.add(enemigos)
+//		}
+//		else if(self.dificultadNivel()==numero and numero==3){
+//			const enemigos = new Enemigo3()
+//			enemigos.configuracionInicial()
+//			listaEnemigos.add(enemigos)	
+//		}
+//	}
 	
-	method spawnearEnemigo3(){
-		if(self.dificultadNivel()==3){
-			const enemigos = new Enemigo3()
-			enemigos.configuracionInicial()
-			listaEnemigos.add(enemigos)	
+	method spawnearEnemigo_(numero){
+		if(self.dificultadNivel()==numero){
+			if(numero==1){
+				const enemigos = new Enemigo()
+				enemigos.configuracionInicial()
+				listaEnemigos.add(enemigos)	
+			}
+			else if(numero==2){
+				const enemigos = new Enemigo2()
+				enemigos.configuracionInicial()
+				listaEnemigos.add(enemigos)
+			}
+			else if(numero==3){
+				const enemigos = new Enemigo3()
+				enemigos.configuracionInicial()
+				listaEnemigos.add(enemigos)	
+			}
 		}
 	}
 	
