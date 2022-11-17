@@ -49,12 +49,15 @@ object nave {
 	}
 	
 	method bomba(){
-		if(game.hasVisual(self) and fase>0){
-			nivel.matarTodosLosEnemigos()
-			game.say(self,"BOOM")
-			game.addVisual(explosion)
-			game.schedule(1000, {=> game.removeVisual(explosion)})
+		const sonido = game.sound("sonidoExplosion.mp3")
+		
+		if(game.hasVisual(self) and fase>0 and not game.hasVisual(explosion)){
 			self.disminuirFase()
+			game.say(self,"BOOM")
+			sonido.play()
+			game.addVisual(explosion)
+			nivel.matarTodosLosEnemigos()
+			game.schedule(1000, {=> game.removeVisual(explosion)})
 		}
 	}
 	
