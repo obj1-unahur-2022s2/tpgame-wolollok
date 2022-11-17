@@ -20,3 +20,8 @@ object reinicio{
 	//method position()= game.at(2,2)
 	method image()= "perdisteFinal.png"
 }
+
+object explosion {
+	method position()= game.origin()
+	method image()= "blanco.jpg" 
+}

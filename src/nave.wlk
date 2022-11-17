@@ -52,6 +52,8 @@ object nave {
 		if(game.hasVisual(self) and fase>0){
 			nivel.matarTodosLosEnemigos()
 			game.say(self,"BOOM")
+			game.addVisual(explosion)
+			game.schedule(1000, {=> game.removeVisual(explosion)})
 			self.disminuirFase()
 		}
 	}
