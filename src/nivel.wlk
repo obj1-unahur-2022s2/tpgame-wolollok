@@ -49,7 +49,7 @@ object nivel{
 		game.onTick(750, "Nuevos enemigos3", {self.spawnearEnemigo3()})   
 	            
 		//Power Up
-		game.onTick(1000, "Nuevos power up" , {self.spawnearPowerUp()})
+		game.onTick(20000, "Nuevos power up" , {self.spawnearPowerUp()})
 		
 		tema.resume()
 	}
