@@ -27,4 +27,4 @@
 ## Otros
 
 - Programación con Objetos I - Comisión 1 - Universidad Nacional de Hurlingham
-- Versión de wollok
+- wollok 3.0.0
