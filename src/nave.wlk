@@ -4,7 +4,7 @@ import medidas.*
 
 object nave {
 	var property position = game.center()
-	var property vidas = 5
+//	var property vidas = 5
 	var property fase = 0
 	var property enemigosDerrotados = 0
 	
@@ -24,19 +24,21 @@ object nave {
     	if(fase>0){
     		fase -=1
     	}
+    	else nivel.gameOver()
     }
     
     method agarroPowerUp(){	self.mejorar() }
 	
 	method teAgarroEnemigo(enemigo){
 		game.removeVisual(enemigo)
-		if(fase > 0){
-			fase -= 1
-		}
-		else nivel.gameOver()
+		self.disminuirFase()
+//		if(fase > 0){
+//			fase -= 1
+//		}
+//		else nivel.gameOver()
 	}
 	
-	method perderVida(){ vidas -= 1	}
+//	method perderVida(){ vidas -= 1	}
 	
 	method dispararSiPuede(){
 		if(game.hasVisual(self)){

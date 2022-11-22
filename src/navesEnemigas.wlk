@@ -6,6 +6,7 @@ import medidas.*
 class Enemigo {
 	var property position = game.at(0.randomUpTo(tablero.anchoMax()), tablero.alturaMax())
 	const property posicionInicial = position
+	const muerte = game.sound("sonidoMuerte.mp3")
 	
 	method image()= "naveEnemiga1.png"
 			
@@ -41,6 +42,7 @@ class Enemigo {
 			self.terminar2()
 			self.removerEnemigo()
 			nave.enemigoDerrotado()
+			muerte.play()
 		}
 	}
 	
@@ -104,8 +106,8 @@ class Enemigo3 inherits Enemigo{
 	
 	override method moverse(){
 		position = game.at(
-            position.x() + (nave.position().x()-position.x())/2,//4
-            position.y() + (nave.position().y()- position.y())/2//4
+            position.x() + (nave.position().x()-position.x())/3,//4
+            position.y() + (nave.position().y()- position.y())/3//4
 		)
 	}
 }
