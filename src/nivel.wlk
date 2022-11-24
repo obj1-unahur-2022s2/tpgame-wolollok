@@ -3,6 +3,17 @@ import navesEnemigas.*
 import nave.*
 import medidas.*
 
+
+object facil {
+	method spawnearEnemigo() = new Enemigo()
+}
+object intermedio {
+	method spawnearEnemigo() = new Enemigo2()
+}
+object dificil {
+	method spawnearEnemigo() = new Enemigo3()
+}
+
 object nivel{
 	const property listaEnemigos =[]
 	const tema = game.sound("MusicaTest2.mp3")
@@ -13,12 +24,12 @@ object nivel{
 	
 	method dificultadNivel(){
 		if (nave.enemigosDerrotados().between(0,10)){
-			return 1
+			return facil
 		}
 		else if(nave.enemigosDerrotados().between(11,50)){
-			return 2
+			return intermedio
 		}
-		else return 3
+		else return dificil
 	}
 	
 	method configSonido(){
@@ -44,13 +55,9 @@ object nivel{
 		game.addVisualCharacter(nave)
 		nave.centrar()
 		//Naves Enemigas
-//		game.onTick(2000, "Nuevos enemigos", {self.spawnearEnemigo1()})   
-//		game.onTick(1000, "Nuevos enemigos2", {self.spawnearEnemigo2()})  
-//		game.onTick(750, "Nuevos enemigos3", {self.spawnearEnemigo3()})   
-		
-		game.onTick(2000, "Nuevos enemigos", {self.spawnearEnemigo_(1)})   
-		game.onTick(1000, "Nuevos enemigos2", {self.spawnearEnemigo_(2)})  
-		game.onTick(899, "Nuevos enemigos3", {self.spawnearEnemigo_(3)})  
+		game.onTick(2000, "Nuevos enemigos", {self.spawnearEnemigo_(facil)})   
+		game.onTick(1000, "Nuevos enemigos2", {self.spawnearEnemigo_(intermedio)})  
+		game.onTick(899, "Nuevos enemigos3", {self.spawnearEnemigo_(dificil)})  
 	            
 		//Power Up
 		game.onTick(20000, "Nuevos power up" , {self.spawnearPowerUp()})
@@ -66,45 +73,14 @@ object nivel{
 		game.say(reinicio, "Has derrotado " + nave.enemigosDerrotados() + " enemigos")
 	}
 	
-//	method spawnearEnemigo1(){
-//		if(self.dificultadNivel()==1){
-//			const enemigos = new Enemigo()
-//			enemigos.configuracionInicial()
-//			listaEnemigos.add(enemigos)	
-//		}
-//	}
-//	
-//	method spawnearEnemigo2(){
-//		if(self.dificultadNivel()==2){
-//			const enemigos = new Enemigo2()
-//			enemigos.configuracionInicial()
-//			listaEnemigos.add(enemigos)	
-//		}
-//	}
-//	
-//	method spawnearEnemigo3(){
-//		if(self.dificultadNivel()==3){
-//			const enemigos = new Enemigo3()
-//			enemigos.configuracionInicial()
-//			listaEnemigos.add(enemigos)	
-//		}
-//	}
+
 	
-	method spawnearEnemigo_(numero){
-		if(self.dificultadNivel()==numero and numero==1){
-			const enemigos = new Enemigo()
-			enemigos.configuracionInicial()
-			listaEnemigos.add(enemigos)	
-		}
-		else if(self.dificultadNivel()==numero and numero==2){
-			const enemigos = new Enemigo2()
-			enemigos.configuracionInicial()
-			listaEnemigos.add(enemigos)
-		}
-		else if(self.dificultadNivel()==numero and numero==3){
-			const enemigos = new Enemigo3()
-			enemigos.configuracionInicial()
-			listaEnemigos.add(enemigos)	
+	method spawnearEnemigo_(dificultad){
+		var enemigo
+		if(self.dificultadNivel()==dificultad){
+			enemigo = self.dificultadNivel().spawnearEnemigo()
+			enemigo.configuracionInicial()
+			listaEnemigos.add(enemigo)	
 		}
 	}
 	

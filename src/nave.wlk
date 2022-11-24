@@ -15,9 +15,7 @@ object nave {
 	}
 	
     method mejorar(){
-    	if(fase != 2){
-    		fase += 1
-    	}
+   		fase = (fase + 1).min(2)
     }
     
     method disminuirFase(){
@@ -32,14 +30,7 @@ object nave {
 	method teAgarroEnemigo(enemigo){
 		game.removeVisual(enemigo)
 		self.disminuirFase()
-//		if(fase > 0){
-//			fase -= 1
-//		}
-//		else nivel.gameOver()
 	}
-	
-//	method perderVida(){ vidas -= 1	}
-	
 	method dispararSiPuede(){
 		if(game.hasVisual(self)){
 			self.disparar()
@@ -69,7 +60,7 @@ object nave {
 	method morir(){}
 	method disiparse(){}
 }
-// position = game.at(nave.position().x(),nave.position().y()+1)
+
 class PowerUp{
 	var property image = "wollok.png"
 	var property position = game.at(0.randomUpTo(9), 0.randomUpTo(9))

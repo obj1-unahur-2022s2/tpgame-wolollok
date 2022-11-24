@@ -7,15 +7,14 @@ class Enemigo {
 	var property position = game.at(0.randomUpTo(tablero.anchoMax()), tablero.alturaMax())
 	const property posicionInicial = position
 	const muerte = game.sound("sonidoMuerte.mp3")
+	const nivelEnemigo = 1
 	
-	method image()= "naveEnemiga1.png"
+	method image()= "naveEnemiga" + nivelEnemigo + ".png"
 			
 	method moverse(){
-//		const newY = position.y() -1
 		position = position.down(1)
 		if(position.y() < tablero.alturaMin()){
 			self.desaparecer()
-//			self.terminar()
 		}
 	}
 	
@@ -56,18 +55,11 @@ class Enemigo {
 	method agarroPowerUp(){}
 }
 
-class Enemigo2 inherits Enemigo{
-	override method image()= "naveEnemiga2.png"
-	
-//	override method configuracionInicial(){
-//		game.addVisual(self)
-//		game.onTick(1000, "movimiento", {self.zigzag()})
-//		game.whenCollideDo(self, {n => n.teAgarroEnemigo(self)})
-//	}
+class Enemigo2 inherits Enemigo(nivelEnemigo = 2){
 	
 	override method moverse(){
 		self.abajoIzq()
-		game.schedule(500,{=> self.abajoDer()})
+		game.schedule(500,{self.abajoDer()})
 	}
 	
 	method abajoIzq(){
@@ -82,27 +74,11 @@ class Enemigo2 inherits Enemigo{
 	
 }
 
-class Enemigo3 inherits Enemigo{
-	override method image()= "naveEnemiga3.png"
-	
-//	override method morir(){
-//		if(game.hasVisual(self)){
-//			nivel.listaEnemigos().remove(self)
-//			self.terminar()
-//			self.removerEnemigo()
-//			nave.enemigoDerrotado()
-//		}
-//	}
+class Enemigo3 inherits Enemigo(nivelEnemigo = 3){
 	
 	override method terminar2() {
 		self.terminar()
 	}
-	
-//	override method configuracionInicial(){
-//		game.addVisual(self)
-//		game.onTick(1000, "movimiento", {self.perseguirNave()})
-//		game.whenCollideDo(self, {n => n.teAgarroEnemigo(self)})
-//	}
 	
 	override method moverse(){
 		position = game.at(
