@@ -28,8 +28,11 @@ object nave {
     method agarroPowerUp(){	self.mejorar() }
 	
 	method teAgarroEnemigo(enemigo){
+		const sonidoDanio = game.sound("sonidoDanio.mp3")
+		
 		game.removeVisual(enemigo)
 		self.disminuirFase()
+		sonidoDanio.play()
 	}
 	method dispararSiPuede(){
 		if(game.hasVisual(self)){
