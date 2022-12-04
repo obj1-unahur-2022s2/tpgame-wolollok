@@ -15,6 +15,8 @@
 
 ## Reglas de Juego / Instrucciones
 
+¡Bienvenido a Wolollok Invaders! En este juego tu objetivo es derrotar a la mayor cantidad de naves enemigas mejorando tu nave en el proceso.
+
 - Presiona Enter para comenzar el juego.
 - Presiona las flechas direccionales para moverte.
 - Presiona Espacio para disparar.
@@ -26,5 +28,5 @@
 
 ## Otros
 
-- Programación con Objetos I - Comisión 1 - Universidad Nacional de Hurlingham
+- Programación con Objetos I - Comisión 1 - Universidad Nacional de Hurlingham - 2do Cuatrimestre
 - wollok 3.0.0
